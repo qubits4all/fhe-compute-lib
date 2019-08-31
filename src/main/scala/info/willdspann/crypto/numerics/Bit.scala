@@ -1,8 +1,10 @@
 package info.willdspann.crypto.numerics
 
-trait Bit {
+trait Bit[B <: Bit[B]] {
 
-    def xor(bit: Bit): Bit
+    def xor(bit: B): B
 
-    def and(bit: Bit): Bit
+    def and(bit: B): B
+
+    def complement(): B
 }

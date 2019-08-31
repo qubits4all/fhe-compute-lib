@@ -1,16 +1,16 @@
 package info.willdspann.crypto.numerics
 
-trait IntegerLike {
+trait IntegerLike[I <: IntegerLike[I]] {
 
-    def xor(integer: IntegerLike): IntegerLike
+    def xor(integer: I): I
 
-    def and(integer: IntegerLike): IntegerLike
+    def and(integer: I): I
 
-    def add(integer: IntegerLike): IntegerLike
+    def add(integer: I): I
 
-    def subtract(integer: IntegerLike): IntegerLike
+    def subtract(integer: I): I
 
-    def negate(): IntegerLike
+    def negate(): I
 
-    def complement(): IntegerLike
+    def complement(): I
 }
