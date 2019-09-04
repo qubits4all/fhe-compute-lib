@@ -3,6 +3,7 @@ package info.willdspann.crypto.fhe.clear
 import java.security.{PrivateKey, PublicKey}
 
 import info.willdspann.crypto.fhe.{FheOperations, WrappedCiphertext}
+import info.willdspann.crypto.fhe.clear.WrappedCleartext.byteFromBit
 
 /**
  * <p>An `FheOperations` implementation that performs all operations in the clear, instead of actually doing any fully-
@@ -14,23 +15,12 @@ import info.willdspann.crypto.fhe.{FheOperations, WrappedCiphertext}
 class ClearFheOperations() <: FheOperations {
 
     override def encrypt(bit: Boolean)(implicit publicKey: PublicKey): WrappedCiphertext = {
-        val encBytes: Array[Byte] = bit match {
-            case true => Array(1)
-            case false => Array(0)
-        }
-        new WrappedCleartext(encBytes)
+        WrappedCleartext(bit)
     }
 
     override def decrypt(cipherBit: WrappedCiphertext, privateKey: PrivateKey = null): Boolean = {
         cipherBit match {
-            case cleartext: WrappedCleartext => {
-                val clearByte = cleartext.ciphertextBytes(0)
-                if (clearByte == 1) true
-                else if (clearByte == 0) false
-                else {
-                    throw new IllegalArgumentException(s"Provided WrappedCleartext contains an invalid value: $clearByte")
-                }
-            }
+            case cleartext: WrappedCleartext => cleartext.clearBit
             case ciphertext: WrappedCiphertext => throw new IllegalArgumentException(
                 s"WrappedCleartext required but another WrappedCiphertext was provided: ${ciphertext.getClass}"
             )
@@ -44,7 +34,7 @@ class ClearFheOperations() <: FheOperations {
         // XOR the two zero-padded bits (as Ints), then clear all but the LSb using an 0x01 mask, and fetch the LSB.
         val xorByte: Byte = ((clearBit1 ^ clearBit2) & 0x01).byteValue
 
-        new WrappedCleartext(Array(xorByte))
+        WrappedCleartext(Array(xorByte))
     }
 
     override def fheAnd(cipherBit1: WrappedCiphertext, cipherBit2: WrappedCiphertext): WrappedCiphertext = {
@@ -53,21 +43,7 @@ class ClearFheOperations() <: FheOperations {
 
         val andByte: Byte = ((clearBit1 & clearBit2) & 0x01).byteValue
 
-        new WrappedCleartext(Array(andByte))
-    }
-
-
-    /**
-     * Creates a zero-padded bit from the given boolean value, mapping `true` to `1` and `false` to `0`.
-     *
-     * @param clearBit boolean value to encode as a zero-padded bit.
-     * @return a zero-padded bit encoding of the given boolean value.
-     */
-    private def byteFromBit(clearBit: Boolean): Byte = {
-        clearBit match {
-            case true => 1
-            case false => 0
-        }
+        WrappedCleartext(Array(andByte))
     }
 }
 
