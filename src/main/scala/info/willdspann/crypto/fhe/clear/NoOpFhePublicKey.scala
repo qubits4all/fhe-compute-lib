@@ -5,7 +5,7 @@ import java.security.PublicKey
 /**
  * A no-op `PublicKey` for use with `ClearFheOperations`.
  */
-case object NoOpFhePublicKey <: PublicKey {
+case object NoOpFhePublicKey extends PublicKey {
 
     override val getAlgorithm: String = "NoOp"
 
