@@ -14,7 +14,7 @@ import info.willdspann.crypto.numerics.Bit
  * @param fheOps
  */
 class CipherBit(ciphertextBit: WrappedCiphertext)(implicit val publicKey: PublicKey,
-                                                  implicit val fheOps: FheOperations) <: Bit[CipherBit]
+                                                  implicit val fheOps: FheOperations) extends Bit[CipherBit]
 {
     private val encBit: WrappedCiphertext = ciphertextBit
 
