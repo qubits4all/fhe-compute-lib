@@ -8,7 +8,7 @@ import info.willdspann.crypto.fhe.WrappedCiphertext
  * Simple implementation of `WrappedCiphertext` for wrapping a `ClearBit`'s cleartext value, which is "encrypted" with
  * a `NoOpFhePublicKey`.
  */
-class WrappedCleartext(val clearBit: Boolean) <: WrappedCiphertext {
+class WrappedCleartext(val clearBit: Boolean) extends WrappedCiphertext {
 
     override def ciphertextBytes: Array[Byte] = Array(WrappedCleartext.byteFromBit(clearBit))
 
