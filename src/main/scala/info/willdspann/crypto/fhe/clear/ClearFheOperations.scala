@@ -12,7 +12,7 @@ import info.willdspann.crypto.fhe.clear.WrappedCleartext.byteFromBit
  * This implementation is useful for testing programs using this FHE library for correctness, as well as measuring a
  * baseline for performance testing of various FHE schemes. </p>
  */
-class ClearFheOperations() <: FheOperations {
+class ClearFheOperations() extends FheOperations {
 
     override def encrypt(bit: Boolean)(implicit publicKey: PublicKey): WrappedCiphertext = {
         WrappedCleartext(bit)
