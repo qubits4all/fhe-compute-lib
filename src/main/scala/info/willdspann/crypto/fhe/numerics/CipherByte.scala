@@ -6,7 +6,7 @@ import info.willdspann.crypto.fhe.FheOperations
 import info.willdspann.crypto.numerics.IntegerLike
 
 class CipherByte(private val bits: Array[CipherBit] = new Array(CipherByte.SIZE))
-                (implicit val publicKey: PublicKey, implicit val fheOps: FheOperations) <: IntegerLike[CipherByte]
+                (implicit val publicKey: PublicKey, implicit val fheOps: FheOperations) extends IntegerLike[CipherByte]
 {
     override def xor(integer: CipherByte): CipherByte = ???
 
