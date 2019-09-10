@@ -9,7 +9,7 @@ import info.willdspann.crypto.fhe.clear.ClearFheOperations
  *
  * @see ClearFheOperations
  */
-object ClearFheOperationsProvider <: FheOperationsProvider {
+object ClearFheOperationsProvider extends FheOperationsProvider {
 
     override lazy val getFheOperations: FheOperations = ClearFheOperations()
 }
