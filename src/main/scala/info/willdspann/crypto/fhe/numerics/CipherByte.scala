@@ -7,7 +7,9 @@ import info.willdspann.crypto.fhe.clear.numerics.ClearByte
 import info.willdspann.crypto.numerics.IntegerLike
 
 class CipherByte(private val bits: Array[CipherBit] = new Array(CipherByte.SIZE))
-                (implicit val publicKey: PublicKey, implicit val fheOps: FheOperations) extends IntegerLike[CipherByte]
+                (implicit val publicKey: PublicKey, implicit val fheOps: FheOperations)
+    extends IntegerLike[CipherByte]
+    with Iterable[CipherBit]
 {
     override def xor(integer: CipherByte): CipherByte = {
         val xored: Array[CipherBit] = bits.zipWithIndex.map[CipherBit] { (cbit: CipherBit, i: Int) =>
@@ -41,6 +43,14 @@ class CipherByte(private val bits: Array[CipherBit] = new Array(CipherByte.SIZE)
         }
 
         new CipherByte(complemented)
+    }
+
+    def toArray: Array[CipherBit] = {
+        Array.copyOf(bits, CipherByte.SIZE)
+    }
+
+    override def iterator: Iterator[CipherBit] = {
+        toArray.iterator
     }
 }
 

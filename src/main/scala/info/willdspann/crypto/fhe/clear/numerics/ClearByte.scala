@@ -3,8 +3,10 @@ package info.willdspann.crypto.fhe.clear.numerics
 import info.willdspann.crypto.fhe.FheOperations
 import info.willdspann.crypto.numerics.IntegerLike
 
-// TODO: Also implement Iterable[ClearBit].
-class ClearByte(private val bits: Array[ClearBit])(implicit val fheOps: FheOperations) extends IntegerLike[ClearByte] {
+class ClearByte(private val bits: Array[ClearBit])(implicit val fheOps: FheOperations)
+    extends IntegerLike[ClearByte]
+    with Iterable[ClearBit]
+{
 
     override def xor(integer: ClearByte): ClearByte = ???
 
