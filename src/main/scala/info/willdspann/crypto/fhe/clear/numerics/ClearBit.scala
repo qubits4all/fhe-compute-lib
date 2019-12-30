@@ -7,7 +7,7 @@ import info.willdspann.crypto.fhe.providers.ClearFheOperationsProvider
 import info.willdspann.crypto.fhe.{FheOperations, WrappedCiphertext}
 import info.willdspann.crypto.numerics.Bit
 
-class ClearBit(cleartextBit: WrappedCiphertext)(implicit val fheOps: FheOperations) <: Bit[ClearBit]
+class ClearBit(cleartextBit: WrappedCiphertext)(implicit val fheOps: FheOperations) extends Bit[ClearBit]
 {
     import ClearBit.defaultPubKey
 
